@@ -23,7 +23,7 @@ public class BatsmanController {
     }
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
-    public void addBowler(@RequestBody Batsman batsman){
+    public void addBatsman(@RequestBody Batsman batsman){
         batsmanService.create(batsman);
     }
 
