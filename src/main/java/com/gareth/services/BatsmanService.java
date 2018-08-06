@@ -2,10 +2,21 @@ package com.gareth.services;
 
 import com.gareth.model.Batsman;
 
+import java.util.Optional;
+import java.util.Set;
+
 public interface BatsmanService {
 
-    Batsman create(Batsman batsman);
-    Batsman read(String batsmanID);
-    Batsman update(Batsman batsman);
-    void delete (String batsmanID);
+    public Batsman create(Batsman batsman);
+
+    public Optional<Batsman> readByID(Integer batsmanID);
+
+    public Set<Batsman> readAll();
+
+    public Batsman update(Batsman batsman);
+
+    public void delete(Batsman batsmanID);
+
+
+
 }

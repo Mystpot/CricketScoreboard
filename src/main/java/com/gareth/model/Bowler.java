@@ -1,21 +1,30 @@
 package com.gareth.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
  *
  */
+@Entity
 public class Bowler implements Serializable {
 
-    private String bowlersID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer bowlersID;
+    private String matchID;
     private String firstName;
     private String lastName;
-    private int totalWickets;
-    private int runsConceded;
-    private int oversBowled;
+    private String totalWickets;
+    private String runsConceded;
+    private String oversBowled;
 
+    public String getMatchID() { return matchID; }
 
-    public String getBowlersID() {
+    public Integer getBowlersID() {
         return bowlersID;
     }
 
@@ -28,15 +37,15 @@ public class Bowler implements Serializable {
         return lastName;
     }
 
-    public int getTotalWickets() {
+    public String getTotalWickets() {
         return totalWickets;
     }
 
-    public int getRunsConceded() {
+    public String getRunsConceded() {
         return runsConceded;
     }
 
-    public int getOversBowled() {
+    public String getOversBowled() {
         return oversBowled;
     }
 
@@ -47,6 +56,7 @@ public class Bowler implements Serializable {
     private Bowler(Builder builder)
     {
         this.bowlersID = builder.bowlersID;
+        this.matchID = builder.matchID;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.totalWickets = builder.totalWickets;
@@ -56,16 +66,23 @@ public class Bowler implements Serializable {
 
     public static class Builder
     {
-        private String bowlersID;
+        private String matchID;
+        private Integer bowlersID;
         private String firstName;
         private String lastName;
-        private int totalWickets;
-        private int runsConceded;
-        private int oversBowled;
+        private String totalWickets;
+        private String runsConceded;
+        private String oversBowled;
 
-        public Builder bowlersID(String value)
+        public Builder bowlersID(Integer value)
         {
             this.bowlersID = value;
+            return this;
+        }
+
+        public Builder matchID(String value)
+        {
+            this.matchID = value;
             return this;
         }
 
@@ -81,25 +98,26 @@ public class Bowler implements Serializable {
             return this;
         }
 
-        public Builder totalWickets(int value)
+        public Builder totalWickets(String value)
         {
             this.totalWickets = value;
             return this;
         }
 
-        public Builder runsConceded(int value)
+        public Builder runsConceded(String value)
         {
             this.runsConceded = value;
             return this;
         }
 
-        public Builder oversBowled(int value)
+        public Builder oversBowled(String value)
         {
             this.oversBowled = value;
             return this;
         }
 
         public Builder copy(Bowler value){
+            this.matchID = value.matchID;
             this.bowlersID = value.bowlersID;
             this.firstName= value.firstName;
             this.lastName=value.lastName;

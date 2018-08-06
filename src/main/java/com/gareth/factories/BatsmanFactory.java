@@ -6,16 +6,18 @@ import java.util.Map;
 
 public class BatsmanFactory {
 
-    public static Batsman getBatsman(Map<String, Object> values)
+    public static Batsman getBatsman(Integer batsmanID, String matchID, String firstName, String lastName, String bowledBy, String totalScore,
+                                     String ballsFaced, String isOut)
     {
         Batsman factoryBatsman = new Batsman.Builder()
-                .batsmanID((String)values.get("batsmanID"))
-                .firstName((String)values.get("firstName"))
-                .lastName((String)values.get("lastName"))
-                .bowledBy((String)values.get("bowledBy"))
-                .totalScore((Integer)values.get("totalScore"))
-                .ballsFaced((Integer)values.get("ballsFaced"))
-                .isOut((Boolean)values.get("isOut"))
+                .batsmanID(batsmanID)
+                .matchID(matchID)
+                .firstName(firstName)
+                .lastName(lastName)
+                .bowledBy(bowledBy)
+                .totalScore(totalScore)
+                .ballsFaced(ballsFaced)
+                .isOut(isOut)
                 .build();
     return factoryBatsman;
     }

@@ -1,40 +1,62 @@
 package com.gareth.services.Impl;
 
+import com.gareth.factories.TotalScoreFactory;
 import com.gareth.model.TotalScore;
-import com.gareth.repositories.Impl.TotalScoreRepositoryImpl;
 import com.gareth.repositories.TotalScoreRepository;
 import com.gareth.services.TotalScoreService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+@Service
 public class TotalScoreServiceImpl implements TotalScoreService {
 
-    private static TotalScoreServiceImpl service = null;
+    @Autowired
+    private TotalScoreRepository totalScoreRepository;
 
-    TotalScoreRepository repository = TotalScoreRepositoryImpl.getInstance();
-
-    public static TotalScoreServiceImpl getInstance(){
-        if(service == null)
-            service = new TotalScoreServiceImpl();
-        return service;
+    @Override
+    public TotalScore create(TotalScore extras)
+    {
+        return totalScoreRepository.save(extras);
     }
 
-    public TotalScore create(TotalScore totalScore)
+    @Override
+    public Optional<TotalScore> readByID(Integer extrasID)
     {
-        return repository.create(totalScore);
+        return totalScoreRepository.findById(extrasID);
     }
 
-    public TotalScore read(int totalScore)
+    @Override
+    public Set<TotalScore> readAll()
     {
-        return repository.read(totalScore);
+        Iterable<TotalScore> extrass = totalScoreRepository.findAll();
+        Set extrasSet = new HashSet();
+        for(TotalScore extras:extrass)
+        {
+            extrasSet.add(extras);
+        }
+        return extrasSet;
     }
 
-
-    public TotalScore update(TotalScore totalScore)
+    @Override
+    public TotalScore update(TotalScore extras)
     {
-        return repository.update(totalScore);
+        return totalScoreRepository.save(extras);
     }
 
-    public void delete(int totalScore)
+    @Override
+    public void delete(TotalScore extrasID)
     {
-        repository.delete(totalScore);
+        totalScoreRepository.delete(extrasID);
     }
 }
+
+

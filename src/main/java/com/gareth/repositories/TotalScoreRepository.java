@@ -1,14 +1,8 @@
 package com.gareth.repositories;
 
 import com.gareth.model.TotalScore;
+import org.springframework.data.repository.CrudRepository;
 
-public interface TotalScoreRepository {
+public interface TotalScoreRepository extends CrudRepository<TotalScore, Integer> {
 
-    TotalScore create(TotalScore totalScore);
-
-    TotalScore read(int totalScore);
-
-    TotalScore update(TotalScore totalScore);
-
-    void delete(int totalScore);
 }

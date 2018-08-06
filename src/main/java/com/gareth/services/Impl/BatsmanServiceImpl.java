@@ -2,40 +2,55 @@ package com.gareth.services.Impl;
 
 import com.gareth.model.Batsman;
 import com.gareth.repositories.BatsmanRepository;
-import com.gareth.repositories.Impl.BatsmanRepositoryImpl;
 import com.gareth.services.BatsmanService;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+
+@Service
 public class BatsmanServiceImpl implements BatsmanService {
 
-    private static BatsmanServiceImpl service = null;
+    @Autowired
+    private BatsmanRepository batsmanRepository;
 
-    BatsmanRepository repository = BatsmanRepositoryImpl.getInstance();
-
-    public static BatsmanServiceImpl getInstance() {
-        if(service == null)
-            service = new BatsmanServiceImpl();
-        return service;
-    }
-
+    @Override
     public Batsman create(Batsman batsman)
-    {
-        return repository.create(batsman);
-    }
+     {
+      return batsmanRepository.save(batsman);
+     }
 
-    public Batsman read(String batsmanID)
-    {
-        return repository.read(batsmanID);
-    }
+     @Override
+    public Optional<Batsman> readByID(Integer batsmanID)
+     {
+         return batsmanRepository.findById(batsmanID);
+     }
 
+     @Override
+    public Set<Batsman> readAll()
+     {
+         Iterable<Batsman> batsmen = batsmanRepository.findAll();
+         Set batsmanSet = new HashSet();
+         for(Batsman batsman:batsmen)
+         {
+             batsmanSet.add(batsman);
+         }
+         return batsmanSet;
+     }
+
+     @Override
     public Batsman update(Batsman batsman)
-    {
-        return repository.update(batsman);
-    }
+     {
+         return batsmanRepository.save(batsman);
+     }
 
-    public void delete(String batsmanID)
-    {
-        repository.delete(batsmanID);
-    }
-
-
+     @Override
+    public void delete(Batsman batsmanID)
+     {
+         batsmanRepository.delete(batsmanID);
+     }
 }

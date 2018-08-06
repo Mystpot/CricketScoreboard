@@ -1,14 +1,9 @@
 package com.gareth.repositories;
 
 import com.gareth.model.Batsman;
+import org.springframework.data.repository.CrudRepository;
 
-public interface BatsmanRepository {
+public interface BatsmanRepository extends CrudRepository<Batsman, Integer>
+{
 
-    Batsman create(Batsman batsman);
-
-    Batsman read(String batsmanID);
-
-    Batsman update(Batsman batsman);
-
-    void delete(String batsmanID);
 }

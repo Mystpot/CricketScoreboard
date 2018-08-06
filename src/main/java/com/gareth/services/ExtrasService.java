@@ -3,14 +3,20 @@ package com.gareth.services;
 import com.gareth.model.Extras;
 import com.gareth.model.TotalScore;
 
+import java.util.Optional;
+import java.util.Set;
+
 public interface ExtrasService  {
 
 
-    Extras create(Extras extras);
+    public Extras create(Extras extras);
 
-    Extras read(int totalWides);
+    public Optional<Extras> readByID(Integer extrasID);
 
-    Extras update(Extras extras);
+    public Set<Extras> readAll();
 
-    void delete(int totalWides);
+    public Extras update(Extras extras);
+
+    public void delete(Extras extrasID);
+
 }

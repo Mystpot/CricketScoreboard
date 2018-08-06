@@ -6,11 +6,13 @@ import java.util.Map;
 
 public class ExtrasFactory {
 
-    public static Extras getExtras(Map<String, Object> values) {
+    public static Extras getExtras(Integer extrasID, String matchID, String totalWides, String totalByes, String totalNoballs) {
         Extras factoryExtras = new Extras.Builder()
-                .totalWides((Integer) values.get("totalWides"))
-                .totalByes((Integer) values.get("totalByes"))
-                .totalNoballs((Integer) values.get("totalNoballs"))
+                .extrasID(extrasID)
+                .matchID(matchID)
+                .totalWides(totalWides)
+                .totalByes(totalByes)
+                .totalNoballs(totalNoballs)
                 .build();
         return factoryExtras;
     }

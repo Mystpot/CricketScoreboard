@@ -1,23 +1,39 @@
 package com.gareth.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity
 public class Extras implements Serializable {
 
-    private int totalWides;
-    private int totalByes;
-    private int totalNoballs;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer extrasID;
+    private String matchID;
+    private String totalWides;
+    private String totalByes;
+    private String totalNoballs;
 
 
-    public int getTotalWides() {
+    public Integer getExtrasID() {
+        return extrasID;
+    }
+
+    public String getMatchID() {
+        return matchID;
+    }
+    public String getTotalWides() {
         return totalWides;
     }
 
-    public int getTotalByes() {
+    public String getTotalByes() {
         return totalByes;
     }
 
-    public double getTotalNoballs() {
+    public String getTotalNoballs() {
         return totalNoballs;
     }
 
@@ -28,30 +44,47 @@ public class Extras implements Serializable {
 
     private Extras(Builder builder)
     {
+        this.extrasID = builder.extrasID;
+        this.matchID = builder.matchID;
         this.totalWides = builder.totalWides;
         this.totalByes = builder.totalByes;
         this.totalNoballs = builder.totalNoballs;
     }
 
+
     public static class Builder
     {
-        private int totalWides;
-        private int totalByes;
-        private int totalNoballs;
+        private Integer extrasID;
+        private String matchID;
+        private String totalWides;
+        private String totalByes;
+        private String totalNoballs;
 
-        public Builder totalWides(int value)
+        public Builder extrasID(Integer value)
+        {
+            this.extrasID = value;
+            return this;
+        }
+
+        public Builder matchID(String value)
+        {
+            this.matchID = value;
+            return this;
+        }
+
+        public Builder totalWides(String value)
         {
             this.totalWides = value;
             return this;
         }
 
-        public Builder totalByes(int value)
+        public Builder totalByes(String value)
         {
             this.totalByes = value;
             return this;
         }
 
-        public Builder totalNoballs(int value)
+        public Builder totalNoballs(String value)
         {
             this.totalNoballs = value;
             return this;

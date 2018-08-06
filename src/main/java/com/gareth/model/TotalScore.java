@@ -1,23 +1,40 @@
 package com.gareth.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity
 public class TotalScore implements Serializable {
 
-    private int totalScore;
-    private int totalWickets;
-    private double totalOvers;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer totalScoreID;
+    private String matchID;
+    private String totalScore;
+    private String totalWickets;
+    private String totalOvers;
 
 
-    public int getTotalScore() {
+    public Integer getTotalScoreID() {
+        return totalScoreID;
+    }
+
+    public String getMatchID() {
+        return matchID;
+    }
+
+    public String getTotalScore() {
         return totalScore;
     }
 
-    public int getTotalWickets() {
+    public String getTotalWickets() {
         return totalWickets;
     }
 
-    public double getTotalOvers() {
+    public String getTotalOvers() {
         return totalOvers;
     }
 
@@ -28,6 +45,8 @@ public class TotalScore implements Serializable {
 
     private TotalScore(Builder builder)
     {
+        this.totalScoreID = builder.totalScoreID;
+        this.matchID = builder.matchID;
         this.totalScore = builder.totalScore;
         this.totalOvers = builder.totalOvers;
         this.totalWickets = builder.totalWickets;
@@ -35,23 +54,39 @@ public class TotalScore implements Serializable {
 
     public static class Builder
     {
-        private int totalScore;
-        private int totalWickets;
-        private double totalOvers;
+        private Integer totalScoreID;
+        private String matchID;
+        private String totalScore;
+        private String totalWickets;
+        private String totalOvers;
 
-        public Builder totalScore(int value)
+
+        public Builder totalScoreID(Integer value)
+        {
+            this.totalScoreID = value;
+            return this;
+        }
+
+        public Builder matchID(String value)
+        {
+            this.matchID = value;
+            return this;
+        }
+
+
+        public Builder totalScore(String value)
         {
             this.totalScore = value;
             return this;
         }
 
-        public Builder totalWickets(int value)
+        public Builder totalWickets(String value)
         {
             this.totalWickets = value;
             return this;
         }
 
-        public Builder totalOvers(double value)
+        public Builder totalOvers(String value)
         {
             this.totalOvers = value;
             return this;

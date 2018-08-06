@@ -1,20 +1,30 @@
 package com.gareth.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
-public class Batsman implements Serializable {
 
-    private String batsmanID;
+@Entity
+public class Batsman {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer batsmanID;
+    private String matchID;
     private String firstName;
     private String lastName;
     private String bowledBy;
-    private int totalScore;
-    private int ballsFaced;
-    private boolean isOut;
+    private String totalScore;
+    private String ballsFaced;
+    private String isOut;
 
-    public String getBatsmanID() {
+    public Integer getBatsmanID() {
         return batsmanID;
     }
+
+    public String getMatchID() { return matchID; }
 
     public String getFirstName() {
         return firstName;
@@ -28,15 +38,15 @@ public class Batsman implements Serializable {
         return bowledBy;
     }
 
-    public int getTotalScore() {
+    public String getTotalScore() {
         return totalScore;
     }
 
-    public int getBallsFaced() {
+    public String getBallsFaced() {
         return ballsFaced;
     }
 
-    public boolean getIsOut() {
+    public String getIsOut() {
         return isOut;
     }
 
@@ -49,6 +59,7 @@ public class Batsman implements Serializable {
     private Batsman(Builder builder)
     {
         this.batsmanID = builder.batsmanID;
+        this.matchID = builder.matchID;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.bowledBy = builder.bowledBy;
@@ -57,18 +68,24 @@ public class Batsman implements Serializable {
         this.isOut = builder.isOut;
     }
 
-
-
     public static class Builder{
-        private String batsmanID;
+        private Integer batsmanID;
+        private String matchID;
         private String firstName;
         private String lastName;
         private String bowledBy;
-        private int totalScore;
-        private int ballsFaced;
-        private boolean isOut;
+        private String totalScore;
+        private String ballsFaced;
+        private String isOut;
 
-        public Builder batsmanID(String value)
+
+        public Builder matchID(String value)
+        {
+            this.matchID = value;
+            return this;
+        }
+
+        public Builder batsmanID(Integer value)
         {
             this.batsmanID = value;
             return this;
@@ -92,19 +109,19 @@ public class Batsman implements Serializable {
             return this;
         }
 
-        public Builder totalScore(int value)
+        public Builder totalScore(String value)
         {
             this.totalScore = value;
             return this;
         }
 
-        public Builder ballsFaced(int value)
+        public Builder ballsFaced(String value)
         {
             this.ballsFaced = value;
             return this;
         }
 
-        public Builder isOut(boolean value)
+        public Builder isOut(String value)
         {
             this.isOut = value;
             return this;

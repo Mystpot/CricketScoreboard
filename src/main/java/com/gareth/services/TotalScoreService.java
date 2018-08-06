@@ -2,13 +2,19 @@ package com.gareth.services;
 
 import com.gareth.model.TotalScore;
 
+import java.util.Optional;
+import java.util.Set;
+
 public interface TotalScoreService  {
 
-    TotalScore create(TotalScore totalScore);
+    public TotalScore create(TotalScore totalScore);
 
-    TotalScore read(int totalScore);
+    public Optional<TotalScore> readByID(Integer totalScoreID);
 
-    TotalScore update(TotalScore totalScore);
+    public Set<TotalScore> readAll();
 
-    void delete(int totalScore);
+    public TotalScore update(TotalScore totalScore);
+
+    public void delete(TotalScore totalScoreID);
+
 }

@@ -7,11 +7,13 @@ import java.util.Map;
 public class TotalScoreFactory {
 
 
-    public static TotalScore getTotalScore(Map<String, Object> values) {
+    public static TotalScore getTotalScore(Integer totalScoreID, String matchID, String totalScore, String totalWickets, String totalOvers) {
         TotalScore factoryTotalScore = new TotalScore.Builder()
-                .totalScore((Integer) values.get("totalScore"))
-                .totalWickets((Integer) values.get("totalWickets"))
-                .totalOvers((Integer) values.get("totalOvers"))
+                .totalScoreID(totalScoreID)
+                .matchID(matchID)
+                .totalScore(totalScore)
+                .totalWickets(totalWickets)
+                .totalOvers(totalOvers)
                 .build();
         return factoryTotalScore;
     }

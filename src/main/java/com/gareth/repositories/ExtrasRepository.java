@@ -1,14 +1,8 @@
 package com.gareth.repositories;
 
 import com.gareth.model.Extras;
+import org.springframework.data.repository.CrudRepository;
 
-public interface ExtrasRepository {
+public interface ExtrasRepository extends CrudRepository<Extras, Integer> {
 
-    Extras create(Extras extras);
-
-    Extras read(int totalWides);
-
-    Extras update(Extras extras);
-
-    void delete(int totalWides);
 }
