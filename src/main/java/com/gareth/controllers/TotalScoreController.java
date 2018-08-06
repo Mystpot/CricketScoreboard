@@ -1,11 +1,16 @@
 package com.gareth.controllers;
 
+import com.gareth.factories.TotalScoreFactory;
 import com.gareth.model.TotalScore;
 import com.gareth.services.Impl.TotalScoreServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,9 +28,16 @@ public class TotalScoreController {
         return totalScoreService.readAll();
     }
 
-    @RequestMapping(value="/add", method = RequestMethod.POST)
-    public void addTotalScore(@RequestBody TotalScore totalScore){
-        totalScoreService.create(totalScore);
+    //@RequestMapping(value="/add", method = RequestMethod.GET)
+    @GetMapping(path="/add")
+    public @ResponseBody String addTotalScore(@RequestParam Integer totalScoreID, @RequestParam String matchID, @RequestParam String totalScore,
+                                             @RequestParam String totalWickets, @RequestParam String totalOvers){
+
+        TotalScore tScore = TotalScoreFactory.getTotalScore(totalScoreID, matchID, totalScore, totalWickets, totalOvers);
+
+        totalScoreService.create(tScore);
+
+        return "Total Score added at row: " + tScore.getTotalScoreID();
     }
 
     @RequestMapping(value="/find")
@@ -45,5 +57,6 @@ public class TotalScoreController {
     public void deleteTotalScore(@PathVariable TotalScore totalScoreID)
     {
         totalScoreService.delete(totalScoreID);
+
     }
 }
