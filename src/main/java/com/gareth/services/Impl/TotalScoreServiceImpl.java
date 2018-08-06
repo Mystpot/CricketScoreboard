@@ -23,39 +23,39 @@ public class TotalScoreServiceImpl implements TotalScoreService {
     private TotalScoreRepository totalScoreRepository;
 
     @Override
-    public TotalScore create(TotalScore extras)
+    public TotalScore create(TotalScore totalScore)
     {
-        return totalScoreRepository.save(extras);
+        return totalScoreRepository.save(totalScore);
     }
 
     @Override
-    public Optional<TotalScore> readByID(Integer extrasID)
+    public Optional<TotalScore> readByID(Integer totalScoreID)
     {
-        return totalScoreRepository.findById(extrasID);
+        return totalScoreRepository.findById(totalScoreID);
     }
 
     @Override
     public Set<TotalScore> readAll()
     {
-        Iterable<TotalScore> extrass = totalScoreRepository.findAll();
-        Set extrasSet = new HashSet();
-        for(TotalScore extras:extrass)
+        Iterable<TotalScore> totalScores = totalScoreRepository.findAll();
+        Set tsSet = new HashSet();
+        for(TotalScore totalScore:totalScores)
         {
-            extrasSet.add(extras);
+            tsSet.add(totalScore);
         }
-        return extrasSet;
+        return tsSet;
     }
 
     @Override
-    public TotalScore update(TotalScore extras)
+    public TotalScore update(TotalScore totalScore)
     {
-        return totalScoreRepository.save(extras);
+        return totalScoreRepository.save(totalScore);
     }
 
     @Override
-    public void delete(TotalScore extrasID)
+    public void delete(TotalScore totalScoreID)
     {
-        totalScoreRepository.delete(extrasID);
+        totalScoreRepository.delete(totalScoreID);
     }
 }
 
