@@ -4,8 +4,10 @@ import com.gareth.factories.TotalScoreFactory;
 import com.gareth.model.TotalScore;
 import com.gareth.services.Impl.TotalScoreServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -28,23 +30,29 @@ public class TotalScoreController {
         return totalScoreService.readAll();
     }
 
-    //@RequestMapping(value="/add", method = RequestMethod.GET)
-    @GetMapping(path="/add")
-    public @ResponseBody String addTotalScore(@RequestParam Integer totalScoreID, @RequestParam String matchID, @RequestParam String totalScore,
-                                             @RequestParam String totalWickets, @RequestParam String totalOvers){
+    @RequestMapping(value="/add", method = RequestMethod.POST)
+    public ResponseEntity addTotalScore(@RequestBody TotalScore totalScore){
 
-        TotalScore tScore = TotalScoreFactory.getTotalScore(totalScoreID, matchID, totalScore, totalWickets, totalOvers);
+        if(StringUtils.isEmpty(totalScore.getMatchID()) || StringUtils.isEmpty(totalScore.getTotalScore()) || StringUtils.isEmpty(totalScore.getTotalWickets()) || StringUtils.isEmpty(totalScore.getTotalOvers()))
+        {
+            return new ResponseEntity("Need extra information", HttpStatus.NO_CONTENT);
 
-        totalScoreService.create(tScore);
-
-        return "Total Score added at row: " + tScore.getTotalScoreID();
+        }
+        totalScoreService.create(totalScore);
+        return new ResponseEntity(totalScore, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/find")
-    public @ResponseBody
-    Optional<TotalScore> findTotalScore(Integer totalScoreID)
+    @RequestMapping(value="/find/{totalScoreID}")
+    public @ResponseBody ResponseEntity
+        /*Optional<Batsman>*/ findBatsman(@PathVariable("batsmanID") Integer totalScoreID)
     {
-        return totalScoreService.readByID(totalScoreID);
+        Optional<TotalScore> totalScore = totalScoreService.readByID(totalScoreID);
+
+        if(!totalScore.isPresent())
+        {
+            return new ResponseEntity("No total score found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(totalScore, HttpStatus.OK);
     }
 
     @RequestMapping(value="/update", method = RequestMethod.PUT)

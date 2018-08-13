@@ -1,5 +1,7 @@
 package com.gareth.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,6 @@ import java.io.Serializable;
 public class TotalScore implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer totalScoreID;
     private String matchID;
     private String totalScore;

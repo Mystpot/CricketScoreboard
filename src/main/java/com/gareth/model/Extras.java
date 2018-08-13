@@ -1,5 +1,7 @@
 package com.gareth.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,29 +12,23 @@ import java.io.Serializable;
 public class Extras implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Integer extrasID;
     private String matchID;
     private String totalWides;
-    private String totalByes;
     private String totalNoballs;
 
 
     public Integer getExtrasID() {
         return extrasID;
     }
-
     public String getMatchID() {
         return matchID;
     }
     public String getTotalWides() {
         return totalWides;
     }
-
-    public String getTotalByes() {
-        return totalByes;
-    }
-
     public String getTotalNoballs() {
         return totalNoballs;
     }
@@ -47,7 +43,6 @@ public class Extras implements Serializable {
         this.extrasID = builder.extrasID;
         this.matchID = builder.matchID;
         this.totalWides = builder.totalWides;
-        this.totalByes = builder.totalByes;
         this.totalNoballs = builder.totalNoballs;
     }
 
@@ -57,7 +52,6 @@ public class Extras implements Serializable {
         private Integer extrasID;
         private String matchID;
         private String totalWides;
-        private String totalByes;
         private String totalNoballs;
 
         public Builder extrasID(Integer value)
@@ -78,11 +72,6 @@ public class Extras implements Serializable {
             return this;
         }
 
-        public Builder totalByes(String value)
-        {
-            this.totalByes = value;
-            return this;
-        }
 
         public Builder totalNoballs(String value)
         {

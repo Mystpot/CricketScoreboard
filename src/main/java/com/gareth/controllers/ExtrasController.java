@@ -3,7 +3,10 @@ package com.gareth.controllers;
 import com.gareth.model.Extras;
 import com.gareth.services.Impl.ExtrasServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -25,15 +28,28 @@ public class ExtrasController {
     }
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
-    public void addExtras(@RequestBody Extras extras){
+    public ResponseEntity addExtras(@RequestBody Extras extras){
+
+        if(StringUtils.isEmpty(extras.getMatchID()) || StringUtils.isEmpty(extras.getTotalWides()) || StringUtils.isEmpty(extras.getTotalNoballs()))
+        {
+            return new ResponseEntity("Need extra information", HttpStatus.NO_CONTENT);
+
+        }
         extrasService.create(extras);
+        return new ResponseEntity(extras, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/find")
-    public @ResponseBody
-    Optional<Extras> findExtras(Integer extrasID)
+    @RequestMapping(value="/find/{totalScoreID}")
+    public @ResponseBody ResponseEntity
+        /*Optional<Batsman>*/ findExtras(@PathVariable("extrasID") Integer extrasID)
     {
-        return extrasService.readByID(extrasID);
+        Optional<Extras> extras = extrasService.readByID(extrasID);
+
+        if(!extras.isPresent())
+        {
+            return new ResponseEntity("No extras found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(extras, HttpStatus.OK);
     }
 
     @RequestMapping(value="/update", method = RequestMethod.PUT)
