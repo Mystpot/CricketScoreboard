@@ -53,4 +53,10 @@ public class BatsmanServiceImpl implements BatsmanService {
      {
          batsmanRepository.delete(batsmanID);
      }
+
+     @Override
+    public void deleteAll()
+     {
+         batsmanRepository.deleteAll();
+     }
 }

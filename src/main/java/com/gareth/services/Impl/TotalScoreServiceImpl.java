@@ -53,9 +53,9 @@ public class TotalScoreServiceImpl implements TotalScoreService {
     }
 
     @Override
-    public void delete(TotalScore totalScoreID)
+    public void delete(TotalScore totalScore)
     {
-        totalScoreRepository.delete(totalScoreID);
+        totalScoreRepository.delete(totalScore);
     }
 }
 

@@ -17,6 +17,7 @@ public interface BatsmanService {
 
     public void delete(Batsman batsmanID);
 
+    public void deleteAll();
 
 
 }

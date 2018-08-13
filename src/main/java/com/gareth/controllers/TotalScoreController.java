@@ -54,9 +54,9 @@ public class TotalScoreController {
     }
 
     @RequestMapping(value="/delete/{totalScoreID}", method = RequestMethod.DELETE)
-    public void deleteTotalScore(@PathVariable TotalScore totalScoreID)
+    public void deleteTotalScore(@PathVariable TotalScore totalScore)
     {
-        totalScoreService.delete(totalScoreID);
+        totalScoreService.delete(totalScore);
 
     }
 }
