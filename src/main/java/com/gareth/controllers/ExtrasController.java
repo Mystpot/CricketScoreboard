@@ -53,9 +53,14 @@ public class ExtrasController {
     }
 
     @RequestMapping(value="/update", method = RequestMethod.PUT)
-    public void updateExtras(@RequestBody Extras extras)
+    public ResponseEntity updateExtras(@RequestBody Extras extras)
     {
+        if(StringUtils.isEmpty(extras.getExtrasID()) || StringUtils.isEmpty(extras.getMatchID()) || StringUtils.isEmpty(extras.getTotalNoballs()) || StringUtils.isEmpty(extras.getTotalWides()))
+        {
+            return new ResponseEntity("Need extra information", HttpStatus.NO_CONTENT);
+        }
         extrasService.update(extras);
+        return new ResponseEntity(extras, HttpStatus.OK);
     }
 
     @RequestMapping(value="/delete/{extrasID}", method = RequestMethod.DELETE)

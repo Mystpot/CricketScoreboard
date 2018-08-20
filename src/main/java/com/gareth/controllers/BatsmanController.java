@@ -35,6 +35,7 @@ public class BatsmanController {
         }
         batsmanService.create(batsman);
         return new ResponseEntity(batsman, HttpStatus.OK);
+
     }
 
     @RequestMapping(value="/find/{batsmanID}")
@@ -51,9 +52,17 @@ public class BatsmanController {
     }
 
     @RequestMapping(value="/update", method = RequestMethod.PUT)
-    public void updateBatsman(@RequestBody Batsman batsman)
+    public ResponseEntity updateBatsman(@RequestBody Batsman batsman)
     {
+        if(StringUtils.isEmpty(batsman.getBatsmanID()) || StringUtils.isEmpty(batsman.getMatchID()) || StringUtils.isEmpty(batsman.getFirstName()) || StringUtils.isEmpty(batsman.getLastName())
+                || StringUtils.isEmpty(batsman.getBowledBy()) || StringUtils.isEmpty(batsman.getTotalScore()) || StringUtils.isEmpty(batsman.getBallsFaced()) || StringUtils.isEmpty(batsman.getIsOut()))
+        {
+            return new ResponseEntity("Need extra information", HttpStatus.NO_CONTENT);
+        }
+
+
         batsmanService.update(batsman);
+        return new ResponseEntity(batsman, HttpStatus.OK);
     }
 
     @RequestMapping(value="/delete/{batsmanID}", method = RequestMethod.DELETE)

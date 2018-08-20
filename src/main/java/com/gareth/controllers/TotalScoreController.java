@@ -9,10 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,7 +40,7 @@ public class TotalScoreController {
 
     @RequestMapping(value="/find/{totalScoreID}")
     public @ResponseBody ResponseEntity
-        /*Optional<Batsman>*/ findBatsman(@PathVariable("batsmanID") Integer totalScoreID)
+        /*Optional<Batsman>*/ findBatsman(@PathVariable("totalScoreID") Integer totalScoreID)
     {
         Optional<TotalScore> totalScore = totalScoreService.readByID(totalScoreID);
 
@@ -56,9 +52,17 @@ public class TotalScoreController {
     }
 
     @RequestMapping(value="/update", method = RequestMethod.PUT)
-    public void updateTotalScore(@RequestBody TotalScore totalScore)
+    public ResponseEntity updateTotalScore(@RequestBody TotalScore totalScore)
     {
+
+        if(StringUtils.isEmpty(totalScore.getTotalScoreID()) || StringUtils.isEmpty(totalScore.getMatchID()) || StringUtils.isEmpty(totalScore.getTotalScore()) || StringUtils.isEmpty(totalScore.getTotalOvers())
+                || StringUtils.isEmpty(totalScore.getTotalWickets()))
+        {
+            return new ResponseEntity("Need extra information", HttpStatus.NO_CONTENT);
+        }
+
         totalScoreService.update(totalScore);
+        return new ResponseEntity(totalScore, HttpStatus.OK);
     }
 
     @RequestMapping(value="/delete/{totalScoreID}", method = RequestMethod.DELETE)

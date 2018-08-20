@@ -52,9 +52,18 @@ public class BowlerController {
         }
 
         @RequestMapping(value="/update", method = RequestMethod.PUT)
-        public void updateBowler(@RequestBody Bowler bowler)
+        public ResponseEntity updateBowler(@RequestBody Bowler bowler)
         {
+            if(StringUtils.isEmpty(bowler.getBowlersID()) || StringUtils.isEmpty(bowler.getMatchID()) || StringUtils.isEmpty(bowler.getFirstName()) || StringUtils.isEmpty(bowler.getLastName())
+                    || StringUtils.isEmpty(bowler.getOversBowled()) || StringUtils.isEmpty(bowler.getRunsConceded()) || StringUtils.isEmpty(bowler.getTotalWickets()))
+            {
+                return new ResponseEntity("Need extra information", HttpStatus.NO_CONTENT);
+            }
+
+
             bowlerService.update(bowler);
+            return new ResponseEntity(bowler, HttpStatus.OK);
+
         }
 
         @RequestMapping(value="/delete/{bowlerID}", method = RequestMethod.DELETE)

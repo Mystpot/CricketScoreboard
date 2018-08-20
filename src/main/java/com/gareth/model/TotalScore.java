@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class TotalScore implements Serializable {
 
     @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Integer totalScoreID;
     private String matchID;
     private String totalScore;
